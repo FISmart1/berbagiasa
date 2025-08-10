@@ -54,8 +54,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/registration/confirm', [RegistrationController::class, 'confirmRegistration'])->name('registration.confirm');
 });
 
-// route default user biasa bisa di sini
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 Auth::routes();

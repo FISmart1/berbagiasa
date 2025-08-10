@@ -1,29 +1,74 @@
 @extends('layouts.app')
 
+@section('title')
+Registrasi
+@endsection
+
 @section('content')
 <div class="container mt-4">
-    <h2>Registrasi Penerima Bansos</h2>
-    <form id="verifyForm">
-        @csrf
-        <div class="mb-3">
-            <label for="qr_code" class="form-label">Scan / Masukkan QR Code</label>
-            <input type="text" name="qr_code" id="qr_code" class="form-control" required>
+    <div class="card shadow" style="max-width: 500px;">
+        <div class="card-header">
+            <h5 class="mb-0">Scan QR Code</h5>
         </div>
-        <button type="submit" class="btn btn-primary">Cek QR</button>
-    </form>
+        <div class="card-body">
+            <form id="verifyForm">
+                @csrf
+                <div class="mb-3">
+                    <label for="qr_code" class="form-label">Masukkan Kode QR</label>
+                    <input type="text" name="qr_code" id="qr_code" class="form-control"
+                           placeholder="Scan atau ketik kode QR di sini..." autofocus required>
+                    <small class="form-text text-muted">
+                        Gunakan scanner atau ketik manual kode QR
+                    </small>
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm">
+                    <i class="fas fa-search me-2"></i>Verifikasi
+                </button>
+            </form>
 
-    <div id="result" class="mt-4" style="display: none;">
-        <h4>Data Penerima</h4>
-        <p><strong>Nama:</strong> <span id="child_name"></span></p>
-        <p><strong>Nama Sekolah:</strong> <span id="school_name"></span></p>
-        <p><strong>Alamat:</strong> <span id="address"></span></p>
-        <button id="confirmBtn" class="btn btn-success">✅ Registrasikan</button>
+            <!-- Hasil scan -->
+            <div id="result" class="mt-4" style="display: none;">
+                <h6 class="fw-bold mb-3">Data Penerima</h6>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-sm mb-0" style="width: auto; min-width: 250px;">
+                        <tbody>
+                            <tr>
+                                <th>Nama</th>
+                                <td id="child_name"></td>
+                            </tr>
+                            <tr>
+                                <th>Nama Sekolah</th>
+                                <td id="school_name"></td>
+                            </tr>
+                            <tr>
+                                <th>Alamat</th>
+                                <td id="address"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button id="confirmBtn" class="btn btn-success btn-sm mt-3">✅ Registrasikan</button>
+            </div>
+        </div>
     </div>
 </div>
+
+<style>
+.table th {
+    white-space: nowrap;
+    padding: 4px 8px;
+    font-size: 0.9rem;
+}
+.table td {
+    padding: 4px 8px;
+    font-size: 0.9rem;
+}
+</style>
 
 <script>
 document.getElementById('verifyForm').addEventListener('submit', function(e) {
     e.preventDefault();
+
     fetch('{{ route("registration.verify") }}', {
         method: 'POST',
         body: new FormData(this)
@@ -61,4 +106,6 @@ document.getElementById('verifyForm').addEventListener('submit', function(e) {
     });
 });
 </script>
+
+
 @endsection

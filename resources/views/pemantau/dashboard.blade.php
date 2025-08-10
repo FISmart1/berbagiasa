@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('layouts.app')
 
 @section('title', 'Dashboard')
 
@@ -90,67 +90,6 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-lg-6 mb-4">
-        <div class="card shadow">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Statistik Penyaluran Barang</h6>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4 text-center">
-                        <div class="mb-3">
-                            <i class="fas fa-tshirt fa-3x text-primary mb-2"></i>
-                            <h5>{{ $uniformCount }}</h5>
-                            <small class="text-muted">Seragam</small>
-                        </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <div class="mb-3">
-                            <i class="fas fa-shoe-prints fa-3x text-success mb-2"></i>
-                            <h5>{{ $shoesCount }}</h5>
-                            <small class="text-muted">Sepatu</small>
-                        </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <div class="mb-3">
-                            <i class="fas fa-briefcase fa-3x text-warning mb-2"></i>
-                            <h5>{{ $bagCount }}</h5>
-                            <small class="text-muted">Tas</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-6 mb-4">
-        <div class="card shadow">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Penyaluran Terbaru</h6>
-            </div>
-            <div class="card-body">
-                @if($recentDistributions->count() > 0)
-                    <div class="list-group list-group-flush">
-                        @foreach($recentDistributions as $recipient)
-                            <div class="list-group-item d-flex justify-content-between align-items-center">
-                                <div>
-                                    <strong>{{ $recipient->child_name }}</strong><br>
-                                    <small class="text-muted">{{ $recipient->qr_code }}</small>
-                                </div>
-                                <small class="text-muted">
-                                    {{ $recipient->distributed_at->format('d/m/Y H:i') }}
-                                </small>
-                            </div>
-                        @endforeach
-                    </div>
-                @else
-                    <p class="text-muted text-center">Belum ada penyaluran</p>
-                @endif
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="row">
     <div class="col-12">
@@ -161,27 +100,9 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-3 mb-3">
-                        <a href="{{ route('recipients.create') }}" class="btn btn-primary btn-block">
-                            <i class="fas fa-plus me-2"></i>
-                            Tambah Penerima
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <a href="{{ route('recipients.scan') }}" class="btn btn-success btn-block">
-                            <i class="fas fa-qrcode me-2"></i>
-                            Scan QR Code
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-3">
                         <a href="{{ route('recipients.index') }}" class="btn btn-info btn-block">
                             <i class="fas fa-list me-2"></i>
                             Lihat Semua Data
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <a href="{{ route('recipients.report') }}" class="btn btn-warning btn-block" target="_blank">
-                            <i class="fas fa-print me-2"></i>
-                            Cetak Laporan
                         </a>
                     </div>
                 </div>

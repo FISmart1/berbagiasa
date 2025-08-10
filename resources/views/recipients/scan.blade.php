@@ -184,13 +184,7 @@ function displayRecipientInfo(recipient, showPdf = false) {
 
     let pdfButton = '';
     if (showPdf || recipient.is_distributed) {
-        pdfButton = `
-            <div class="mt-3">
-                <a href="/recipients/${recipient.id}/signature" class="btn btn-primary" target="_blank">
-                    <i class="fas fa-file-pdf me-2"></i>Cetak PDF
-                </a>
-            </div>
-        `;
+        pdfButton = ``;
     }
 
     $('#resultContent').html(`

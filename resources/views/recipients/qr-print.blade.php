@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -56,13 +56,13 @@
     <div class="qr-container">
         <div class="header">BAZMA PERTAMINA</div>
         <div class="header" style="font-size: 14px;">Bantuan Sosial Pendidikan</div>
-        
+
         <div class="qr-code">
             <img src="data:image/png;base64,{{ base64_encode(\SimpleSoftwareIO\QrCode\Facades\QrCode::format('png')->size(150)->generate($encryptedCode)) }}" alt="QR Code">
         </div>
-        
+
         <div class="qr-text">{{ $recipient->qr_code }}</div>
-        
+
         <div class="recipient-info">
             <table>
                 <tr>
@@ -87,11 +87,11 @@
                 </tr>
             </table>
         </div>
-        
+
         <div class="footer">
             Scan QR ini saat penyaluran bantuan<br>
             Program Cilincing - Jakarta Utara
         </div>
     </div>
 </body>
-</html>
+</html> --}}
