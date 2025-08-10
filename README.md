@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Sistem Informasi Distribusi Bansos Pendidikan
 
 Sistem digital untuk manajemen dan pendistribusian bantuan sosial pendidikan kepada ribuan siswa berbasis web menggunakan Laravel.
@@ -158,3 +159,6 @@ Untuk bantuan teknis atau pertanyaan, hubungi tim development.
 ---
 
 **© 2025 Bazma Pertamina - Sistem Bansos Pendidikan**
+=======
+# Project-Bansos
+>>>>>>> 8b4dbd871c7b7429088a43f85e9145860c3f76d1
