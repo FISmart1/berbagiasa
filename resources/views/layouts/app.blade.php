@@ -12,148 +12,163 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<style>
+    :root {
+        --purple-1: #845EC2;
+        --blue-1: #2C73D2;
+        --blue-2: #0081CF;
+        --blue-3: #0089BA;
+        --teal-1: #008E9B;
+        --teal-2: #008F7A;
+    }
 
-    <style>
-        :root {
-            --purple-1: #845EC2;
-            --blue-1: #2C73D2;
-            --blue-2: #0081CF;
-            --blue-3: #0089BA;
-            --teal-1: #008E9B;
-            --teal-2: #008F7A;
-        }
+    body {
+        font-family: 'Segoe UI', sans-serif;
+    }
 
-        body {
-            font-family: 'Segoe UI', sans-serif;
-        }
+    /* Sidebar desktop & mobile */
+    .sidebar,
+    .sidebar-mobile {
+        min-height: 100vh;
+        background: linear-gradient(180deg,
+            var(--purple-1),
+            var(--blue-1),
+            var(--blue-2),
+            var(--blue-3),
+            var(--teal-1),
+            var(--teal-2));
+    }
 
-        .sidebar {
-            min-height: 100vh;
-            background: linear-gradient(180deg,
-                    var(--purple-1),
-                    var(--blue-1),
-                    var(--blue-2),
-                    var(--blue-3),
-                    var(--teal-1),
-                    var(--teal-2));
-        }
+    .sidebar .nav-link,
+    .sidebar-mobile .nav-link {
+        color: rgba(255, 255, 255, 0.85);
+        padding: 12px 20px;
+        margin: 5px 0;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
 
-        .sidebar .nav-link {
-            color: rgba(255, 255, 255, 0.85);
-            padding: 12px 20px;
-            margin: 5px 0;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
+    .sidebar .nav-link:hover,
+    .sidebar .nav-link.active,
+    .sidebar-mobile .nav-link:hover,
+    .sidebar-mobile .nav-link.active {
+        color: white;
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: translateX(6px);
+    }
 
-        .sidebar .nav-link:hover,
-        .sidebar .nav-link.active {
-            color: white;
-            background-color: rgba(255, 255, 255, 0.2);
-            transform: translateX(6px);
-        }
+    /* Navbar mobile gradasi + animasi */
+    .bg-primary {
+        background: linear-gradient(270deg,
+            var(--purple-1),
+            var(--blue-1),
+            var(--blue-2),
+            var(--teal-1)
+        ) !important;
+        background-size: 400% 400%;
+        animation: navbarGradient 12s ease infinite;
+    }
 
-        .card {
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        }
+    @keyframes navbarGradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
 
-        .btn-primary {
-            background: linear-gradient(90deg, var(--purple-1), var(--blue-1));
-            border: none;
-            border-radius: 25px;
-            padding: 10px 25px;
-            font-weight: bold;
-        }
+    /* Card */
+    .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
 
-        .btn-primary:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
+    /* Button gradasi */
+    .btn-primary {
+        background: linear-gradient(90deg, var(--purple-1), var(--blue-1), var(--teal-1));
+        border: none;
+        border-radius: 25px;
+        padding: 10px 25px;
+        font-weight: bold;
+        color: white;
+        background-size: 300% 300%;
+        animation: btnGradient 8s ease infinite;
+        transition: all 0.3s ease;
+    }
 
-        .table th {
-            background: var(--blue-1);
-            color: white;
-        }
+    .btn-primary:hover {
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    }
 
-        .logo-pertamina {
-            height: 70px;
-            margin-bottom: 15px;
-        }
+    @keyframes btnGradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
 
-        .sidebar-header h4 {
-            font-weight: bold;
-            color: white;
-            font-size: 30px;
-        }
+    /* Tabel */
+    .table th {
+        background: var(--blue-1);
+        color: white;
+    }
 
-        .sidebar-header h6 {
-            font-weight: italic;
-            color: rgb(250, 250, 250);
-            font-size: 12px;
-        }
+    /* Logo Pertamina */
+    .logo-pertamina {
+        height: 70px;
+        margin-bottom: 15px;
+    }
 
-        .alert-success {
-            border-left: 5px solid var(--teal-2);
-        }
+    /* Sidebar header */
+    .sidebar-header h4 {
+        font-weight: bold;
+        color: white;
+        font-size: 30px;
+    }
 
-        .alert-danger {
-            border-left: 5px solid var(--purple-1);
-        }
-    </style>
+    .sidebar-header h6 {
+        font-weight: italic;
+        color: rgb(250, 250, 250);
+        font-size: 12px;
+    }
+
+    /* Alerts */
+    .alert-success {
+        border-left: 5px solid var(--teal-2);
+    }
+
+    .alert-danger {
+        border-left: 5px solid var(--purple-1);
+    }
+</style>
 
 </head>
 
 <body class="bg-light">
     <div class="container-fluid">
         <div class="row">
-            <!-- Sidebar -->
-            <nav class="col-md-3 col-lg-2 d-md-block sidebar collapse">
-                <div class="position-sticky pt-3 text-center sidebar-header">
-                    <img src="{{ asset('image/logo.png') }}" alt="Logo Pertamina" class="logo-pertamina">
-                    <h4>Berbagi Asa</h4>
-                    <h6>Menyalakan Harapan, Mewujudkan Pendidikan</h6>
-                    <hr class="border-light">
-                    <ul class="nav flex-column text-start px-3">
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
-                                href="{{ route('dashboard') }}">
-                                <i class="fas fa-tachometer-alt me-2"></i> Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('recipients.index') ? 'active' : '' }}"
-                                href="{{ route('recipients.index') }}">
-                                <i class="fas fa-users me-2"></i> Data Penerima
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('registration') ? 'active' : '' }}"
-                                href="{{ route('registration') }}">
-                                <i class="fa-solid fa-user-check me-2"></i> Registrasi
-                            </a>
-                        </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('recipients.scan') ? 'active' : '' }}"
-                                href="{{ route('recipients.scan') }}">
-                                <i class="fas fa-qrcode me-2"></i> Penyaluran
-                            </a>
-                        </li>
-                        <li class="nav-item mt-4">
-                            <a class="nav-link text-light" href="{{ route('logout') }}"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                <i class="fas fa-sign-out-alt me-2"></i> Logout
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </li>
-                    </ul>
-                </div>
+            <!-- Sidebar desktop -->
+            <nav class="col-md-3 col-lg-2 d-none d-md-block sidebar collapse">
+                @include('partials.sidebar')
             </nav>
+
+            <!-- Sidebar mobile (Offcanvas) -->
+            <div class="d-md-none p-2 bg-primary text-white d-flex justify-content-between align-items-center">
+                <button class="btn btn-light btn-sm" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <span>{{ config('Bansos', 'Berbagi Asa') }}</span>
+            </div>
+            <div class="offcanvas offcanvas-start sidebar-mobile text-white" tabindex="-1" id="mobileSidebar">
+                <div class="offcanvas-header">
+                    <h5>Menu</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+                </div>
+                <div class="offcanvas-body p-0">
+                    @include('partials.sidebar')
+                </div>
+            </div>
 
             <!-- Main content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">

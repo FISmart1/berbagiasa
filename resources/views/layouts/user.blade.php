@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,151 +13,188 @@
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
-    <style>
-        :root {
-            --red-pertamina: #ED1C24;
-            --blue-pertamina: #0071BC;
-            --green-pertamina: #40B14B;
-        }
+<style>
+    :root {
+        --primary-color: #0072BC; /* Biru Pertamina */
+        --secondary-color: #00A859; /* Hijau Pertamina */
+        --accent-color: #F5F5F5; /* Abu muda */
+    }
 
-        body {
-            font-family: 'Segoe UI', sans-serif;
-        }
+    body {
+        font-family: 'Segoe UI', sans-serif;
+    }
 
-        .sidebar {
-            min-height: 100vh;
-            background: linear-gradient(180deg, var(--blue-pertamina), var(--green-pertamina));
-        }
+    /* Sidebar desktop & mobile */
+    .sidebar,
+    .sidebar-mobile {
+        min-height: 100vh;
+        background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
+    }
 
-        .sidebar .nav-link {
-            color: rgba(255, 255, 255, 0.85);
-            padding: 12px 20px;
-            margin: 5px 0;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
+    .sidebar .nav-link,
+    .sidebar-mobile .nav-link {
+        color: rgba(255, 255, 255, 0.85);
+        padding: 12px 20px;
+        margin: 5px 0;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
 
-        .sidebar .nav-link:hover,
-        .sidebar .nav-link.active {
-            color: white;
-            background-color: rgba(255, 255, 255, 0.2);
-            transform: translateX(6px);
-        }
+    .sidebar .nav-link:hover,
+    .sidebar .nav-link.active,
+    .sidebar-mobile .nav-link:hover,
+    .sidebar-mobile .nav-link.active {
+        color: white;
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: translateX(6px);
+    }
 
-        .card {
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        }
+    /* Navbar mobile gradasi */
+    .bg-primary {
+        background: linear-gradient(270deg, var(--primary-color), var(--secondary-color)) !important;
+        background-size: 400% 400%;
+        animation: navbarGradient 12s ease infinite;
+    }
 
-        .btn-primary {
-            background: linear-gradient(90deg, var(--red-pertamina), var(--blue-pertamina));
-            border: none;
-            border-radius: 25px;
-            padding: 10px 25px;
-            font-weight: bold;
-        }
+    @keyframes navbarGradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
 
-        .btn-primary:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
+    /* Card */
+    .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
 
-        .table th {
-            background: var(--blue-pertamina);
-            color: white;
-        }
+    /* Button gradasi */
+    .btn-primary {
+        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        border: none;
+        border-radius: 25px;
+        padding: 10px 25px;
+        font-weight: bold;
+        color: white;
+        background-size: 300% 300%;
+        animation: btnGradient 8s ease infinite;
+        transition: all 0.3s ease;
+    }
 
-        .logo-pertamina {
-            height: 120px;
-            margin-bottom: 10px;
-        }
+    .btn-primary:hover {
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    }
 
-        .sidebar-header h5 {
-            font-weight: bold;
-            color: white;
-        }
+    @keyframes btnGradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
 
-        .alert-success {
-            border-left: 5px solid var(--green-pertamina);
-        }
+    /* Tabel */
+    .table th {
+        background: var(--primary-color);
+        color: white;
+    }
 
-        .alert-danger {
-            border-left: 5px solid var(--red-pertamina);
-        }
-    </style>
+    /* Logo Pertamina */
+    .logo-pertamina {
+        height: 70px;
+        margin-bottom: 15px;
+    }
+
+    /* Sidebar header */
+    .sidebar-header h4 {
+        font-weight: bold;
+        color: white;
+        font-size: 30px;
+    }
+
+    .sidebar-header h6 {
+        font-style: italic;
+        color: rgb(250, 250, 250);
+        font-size: 12px;
+    }
+
+    /* Alerts */
+    .alert-success {
+        border-left: 5px solid var(--secondary-color);
+    }
+
+    .alert-danger {
+        border-left: 5px solid var(--primary-color);
+    }
+</style>
+
 </head>
+
 <body class="bg-light">
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar -->
-        <nav class="col-md-3 col-lg-2 d-md-block sidebar collapse">
-            <div class="position-sticky pt-3 text-center sidebar-header">
-                <img src="https://i.postimg.cc/3JH5h5st/logo.png" alt="Logo Pertamina" class="logo-pertamina">
-                <h5>Sistem Bansos</h5>
-                <h5>Pendidikan</h5>
-                <hr class="border-light">
-                <ul class="nav flex-column text-start px-3">
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('userdashboard') ? 'active' : '' }}" href="{{ route('userdashboard') }}">
-                            <i class="fas fa-tachometer-alt me-2"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('list') ? 'active' : '' }}" href="{{ route('list') }}">
-                            <i class="fas fa-users me-2"></i> Data Penerima
-                        </a>
-                    </li>
-                    <li class="nav-item mt-4">
-    <a class="nav-link text-light" href="{{ route('logout') }}"
-       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-        <i class="fas fa-sign-out-alt me-2"></i> Logout
-    </a>
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-        @csrf
-    </form>
-</li>
-                </ul>
-            </div>
-        </nav>
+    <div class="container-fluid">
+        <div class="row">
 
-        <!-- Main content -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">@yield('title', 'Dashboard')</h1>
-                <div class="text-muted">
-                    <i class="fas fa-user me-1"></i>
-                    {{ Auth::user()->name ?? 'Admin' }}
+            <!-- Sidebar desktop -->
+            <nav class="col-md-3 col-lg-2 d-none d-md-block sidebar collapse">
+                @include('partials.usersidebar')
+            </nav>
+
+            <!-- Sidebar mobile (Offcanvas) -->
+            <div class="d-md-none p-2 bg-primary text-white d-flex justify-content-between align-items-center">
+                <button class="btn btn-light btn-sm" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <span>{{ config('Bansos', 'Berbagi Asa') }}</span>
+            </div>
+            <div class="offcanvas offcanvas-start sidebar-mobile text-white" tabindex="-1" id="mobileSidebar">
+                <div class="offcanvas-header">
+                    <h5>Menu</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+                </div>
+                <div class="offcanvas-body p-0">
+                    @include('partials.usersidebar')
                 </div>
             </div>
 
-            @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <i class="fas fa-check-circle me-2"></i>
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">@yield('title', 'Dashboard')</h1>
+                    <div class="text-muted">
+                        <i class="fas fa-user me-1"></i>
+                        {{ Auth::user()->name ?? 'Admin' }}
+                    </div>
                 </div>
-            @endif
 
-            @if(session('error'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <i class="fas fa-exclamation-circle me-2"></i>
-                    {{ session('error') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            @endif
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="fas fa-check-circle me-2"></i>
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                @endif
 
-            @yield('content')
-        </main>
+                @if (session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        {{ session('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                @endif
+
+                @yield('content')
+            </main>
+        </div>
     </div>
-</div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-@stack('scripts')
+    @stack('scripts')
 </body>
+
 </html>

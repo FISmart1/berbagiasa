@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Scan QR Code')
+@section('title', 'Penyaluran')
 
 @section('content')
 <div class="row">

@@ -1,4 +1,4 @@
-{{-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -55,7 +55,6 @@
 <body>
     <div class="qr-container">
         <div class="header">BAZMA PERTAMINA</div>
-        <div class="header" style="font-size: 14px;">Bantuan Sosial Pendidikan</div>
 
         <div class="qr-code">
             <img src="data:image/png;base64,{{ base64_encode(\SimpleSoftwareIO\QrCode\Facades\QrCode::format('png')->size(150)->generate($encryptedCode)) }}" alt="QR Code">
@@ -70,8 +69,12 @@
                     <td>{{ $recipient->child_name }}</td>
                 </tr>
                 <tr>
-                    <td><strong>Orang Tua:</strong></td>
-                    <td>{{ $recipient->parent_name }}</td>
+                    <td><strong>Ayah:</strong></td>
+                    <td>{{ $recipient->Ayah_name }}</td>
+                </tr>
+                 <tr>
+                    <td><strong>Ibu:</strong></td>
+                    <td>{{ $recipient->Ibu_name }}</td>
                 </tr>
                 <tr>
                     <td><strong>Sekolah:</strong></td>
@@ -81,17 +84,13 @@
                     <td><strong>Kelas:</strong></td>
                     <td>{{ $recipient->class }}</td>
                 </tr>
-                <tr>
-                    <td><strong>Ukuran:</strong></td>
-                    <td>Sepatu {{ $recipient->shoe_size }}, Baju {{ $recipient->shirt_size }}</td>
-                </tr>
             </table>
         </div>
 
         <div class="footer">
-            Scan QR ini saat penyaluran bantuan<br>
+            Scan QR ini saat Registrasi & penyaluran<br>
             Program Cilincing - Jakarta Utara
         </div>
     </div>
 </body>
-</html> --}}
+</html>

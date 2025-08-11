@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="d-flex justify-content-between align-items-center mb-4"> <h4>Import Data Penerima dari Excel</h4> <a href="{{ route('recipients.index') }}" class="btn btn-secondary"> <i class="fas fa-arrow-left me-2"></i>Kembali </a> </div> <div class="card shadow"> <div class="card-body"> @if(session('success')) <div class="alert alert-success">{{ session('success') }}</div> @endif
+<div class="d-flex justify-content-between align-items-center mb-4"> <h4></h4> <a href="{{ route('recipients.index') }}" class="btn btn-secondary"> <i class="fas fa-arrow-left me-2"></i>Kembali </a> </div> <div class="card shadow"> <div class="card-body"> @if(session('success')) <div class="alert alert-success">{{ session('success') }}</div> @endif
     @if(session('error'))
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif

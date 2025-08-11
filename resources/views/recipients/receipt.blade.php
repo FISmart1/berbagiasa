@@ -1,4 +1,4 @@
-{{-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -350,4 +350,4 @@
         <p><strong>Program Bantuan Sosial Pendidikan - Yayasan Bazma & PT Pertamina (Persero)</strong></p>
     </div>
 </body>
-</html> --}}
+</html>
