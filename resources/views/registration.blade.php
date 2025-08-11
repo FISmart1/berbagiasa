@@ -27,28 +27,52 @@ Registrasi
             </form>
 
             <!-- Hasil scan -->
-            <div id="result" class="mt-4" style="display: none;">
-                <h6 class="fw-bold mb-3">Data Penerima</h6>
-                <div class="table-responsive">
-                    <table class="table table-bordered table-sm mb-0" style="width: auto; min-width: 250px;">
-                        <tbody>
-                            <tr>
-                                <th>Nama</th>
-                                <td id="child_name"></td>
-                            </tr>
-                            <tr>
-                                <th>Nama Sekolah</th>
-                                <td id="school_name"></td>
-                            </tr>
-                            <tr>
-                                <th>Alamat</th>
-                                <td id="address"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <button id="confirmBtn" class="btn btn-success btn-sm mt-3">✅ Registrasikan</button>
-            </div>
+            <!-- Hasil scan -->
+<div id="result" class="mt-4" style="display: none;">
+    <h6 class="fw-bold mb-3">Data Penerima</h6>
+    <form id="editForm">
+        @csrf
+        <input type="hidden" name="qr_code" id="edit_qr_code">
+
+        <div class="mb-2">
+            <label class="form-label">Nama Anak</label>
+            <input type="text" name="child_name" id="child_name" class="form-control form-control-sm">
+        </div>
+
+        <div class="mb-2">
+            <label class="form-label">Nama Ayah</label>
+            <input type="text" name="Ayah_name" id="Ayah_name" class="form-control form-control-sm">
+        </div>
+
+        <div class="mb-2">
+            <label class="form-label">Nama Ibu</label>
+            <input type="text" name="Ibu_name" id="Ibu_name" class="form-control form-control-sm">
+        </div>
+
+        <div class="mb-2">
+            <label class="form-label">Tempat Lahir</label>
+            <input type="text" name="birth_place" id="birth_place" class="form-control form-control-sm">
+        </div>
+
+        <div class="mb-2">
+            <label class="form-label">Tanggal lahir</label>
+            <input type="date" name="birth_date" id="birth_date" class="form-control form-control-sm">
+        </div>
+
+        <div class="mb-2">
+            <label class="form-label">Nama Sekolah</label>
+            <input type="text" name="school_name" id="school_name" class="form-control form-control-sm">
+        </div>
+
+        <div class="mb-2">
+            <label class="form-label">Alamat</label>
+            <textarea name="address" id="address" class="form-control form-control-sm"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success btn-sm mt-2">✅ Simpan & Registrasikan</button>
+    </form>
+</div>
+
         </div>
     </div>
 </div>
@@ -77,34 +101,49 @@ document.getElementById('verifyForm').addEventListener('submit', function(e) {
     .then(data => {
         if (data.success) {
             document.getElementById('result').style.display = 'block';
-            document.getElementById('child_name').textContent = data.recipient.child_name;
-            document.getElementById('school_name').textContent = data.recipient.school_name;
-            document.getElementById('address').textContent = data.recipient.address;
 
-            document.getElementById('confirmBtn').onclick = function() {
-                let formData = new FormData();
-                formData.append('qr_code', document.getElementById('qr_code').value);
-                formData.append('_token', '{{ csrf_token() }}');
-
-                fetch('{{ route("registration.confirm") }}', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(res => res.json())
-                .then(resp => {
-                    if (resp.success) {
-                        alert('Registrasi Berhasil ✅');
-                        location.reload();
-                    } else {
-                        alert(resp.error);
-                    }
-                });
-            };
+            // Isi form edit
+            document.getElementById('edit_qr_code').value = document.getElementById('qr_code').value;
+            document.getElementById('child_name').value = data.recipient.child_name;
+            document.getElementById('Ayah_name').value = data.recipient.Ayah_name;
+            document.getElementById('Ibu_name').value = data.recipient.Ibu_name;
+            document.getElementById('birth_place').value = data.recipient.birth_place;
+            document.getElementById('birth_date').value = data.recipient.birth_date;
+            document.getElementById('school_name').value = data.recipient.school_name;
+            document.getElementById('address').value = data.recipient.address;
         } else {
             alert(data.error);
         }
     });
 });
+
+// Handle simpan & registrasi
+document.getElementById('editForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    fetch('{{ route("registration.confirm") }}', {
+        method: 'POST',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: new FormData(this)
+    })
+    .then(res => res.json())
+    .then(resp => {
+        if (resp.success) {
+            alert('Registrasi & Update Berhasil ✅');
+            location.reload();
+        } else {
+            alert(resp.error || 'Terjadi kesalahan');
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        alert('Gagal mengirim data');
+    });
+});
+
+
 </script>
 
 

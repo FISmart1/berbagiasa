@@ -223,9 +223,14 @@
                     <td>{{ $recipient->child_name }}</td>
                 </tr>
                 <tr>
-                    <td class="label">Nama Orang Tua</td>
+                    <td class="label">Nama Ayah</td>
                     <td class="colon">:</td>
-                    <td>{{ $recipient->parent_name }}</td>
+                    <td>{{ $recipient->Ayah_name }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Nama Ibu</td>
+                    <td class="colon">:</td>
+                    <td>{{ $recipient->Ibu_name }}</td>
                 </tr>
                 <tr>
                     <td class="label">Tempat, Tanggal Lahir</td>
@@ -251,59 +256,7 @@
         </div>
 
         <div class="items-section">
-            <p><strong>Dengan rincian bantuan yang diterima sebagai berikut:</strong></p>
-            <table class="items-table">
-                <thead>
-                    <tr>
-                        <th style="width: 10%;">No</th>
-                        <th style="width: 40%;">Jenis Bantuan</th>
-                        <th style="width: 20%;">Spesifikasi</th>
-                        <th style="width: 15%;">Status</th>
-                        <th style="width: 15%;">Keterangan</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td class="text-left">Seragam Sekolah</td>
-                        <td>Ukuran {{ $recipient->shirt_size }}</td>
-                        <td>
-                            @if($recipient->uniform_received)
-                                <span class="status-received">✓ DITERIMA</span>
-                            @else
-                                <span>BELUM</span>
-                            @endif
-                        </td>
-                        <td>1 Set</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td class="text-left">Sepatu Sekolah</td>
-                        <td>Ukuran {{ $recipient->shoe_size }}</td>
-                        <td>
-                            @if($recipient->shoes_received)
-                                <span class="status-received">✓ DITERIMA</span>
-                            @else
-                                <span>BELUM</span>
-                            @endif
-                        </td>
-                        <td>1 Pasang</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="text-left">Tas Sekolah</td>
-                        <td>Standard</td>
-                        <td>
-                            @if($recipient->bag_received)
-                                <span class="status-received">✓ DITERIMA</span>
-                            @else
-                                <span>BELUM</span>
-                            @endif
-                        </td>
-                        <td>1 Buah</td>
-                    </tr>
-                </tbody>
-            </table>
+            
         </div>
 
         <div class="closing-text">

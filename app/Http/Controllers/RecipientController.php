@@ -10,11 +10,20 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class RecipientController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $recipients = Recipient::paginate(20);
+        $search = $request->input('search');
+
+        $recipients = Recipient::when($search, function ($query, $search) {
+            $query->where('child_name', 'LIKE', "%{$search}%");
+        })
+            ->orderBy('child_name', 'asc')
+            ->paginate(10);
+
         return view('recipients.index', compact('recipients'));
     }
+
+
 
     public function create()
     {

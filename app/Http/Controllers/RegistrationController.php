@@ -29,15 +29,32 @@ class RegistrationController extends Controller
 
         return response()->json([
             'success' => true,
-            'recipient' => $recipient
+            'recipient' => [
+                'child_name' => $recipient->child_name,
+                'Ayah_name' => $recipient->Ayah_name,
+                'Ibu_name' => $recipient->Ibu_name,
+                'birth_place' => $recipient->birth_place,
+                'birth_date' => $recipient->birth_date
+                    ? \Carbon\Carbon::parse($recipient->birth_date)->format('Y-m-d')
+                    : null,
+                'school_name' => $recipient->school_name,
+                'address' => $recipient->address
+            ]
         ]);
     }
 
-    // Konfirmasi Registrasi
+    // Konfirmasi Registrasi + Update Data
     public function confirmRegistration(Request $request)
     {
         $request->validate([
-            'qr_code' => 'required|string'
+            'qr_code' => 'required|string',
+            'child_name' => 'required|string|max:255',
+            'Ayah_name' => 'nullable|string|max:255',
+            'Ibu_name' => 'nullable|string|max:255',
+            'birth_place' => 'nullable|string|max:255',
+            'birth_date' => 'required|date',
+            'school_name' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:500',
         ]);
 
         $recipient = Recipient::where('qr_code', $request->qr_code)->first();
@@ -46,14 +63,22 @@ class RegistrationController extends Controller
             return response()->json(['error' => 'QR Code tidak ditemukan'], 404);
         }
 
-        if ($recipient->registered) {
+        if ($recipient->registrasi) {
             return response()->json(['error' => 'Penerima sudah registrasi'], 400);
         }
 
+        // Update data
+        $recipient->child_name = $request->child_name;
+        $recipient->Ayah_name = $request->Ayah_name;
+        $recipient->Ibu_name = $request->Ibu_name;
+        $recipient->birth_place = $request->birth_place;
+        $recipient->birth_date = $request->birth_date;
+        $recipient->school_name = $request->school_name;
+        $recipient->address = $request->address;
         $recipient->registrasi = true;
         $recipient->save();
 
-        return response()->json(['success' => true, 'message' => 'Registrasi berhasil']);
+        return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui dan registrasi berhasil']);
     }
-}
 
+}
