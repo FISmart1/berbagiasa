@@ -183,15 +183,26 @@ class RecipientController extends Controller
         ]);
 
         try {
-            $qrInput = $request->qr_code;
-
-            $recipient = Recipient::where('qr_code', $qrInput)->first();
+            // Gunakan select() untuk hanya mengambil kolom yang diperlukan
+            $recipient = Recipient::where('qr_code', $request->qr_code)
+                ->select([
+                    'id',
+                    'child_name',
+                    'Ayah_name',
+                    'Ibu_name',
+                    'school_name',
+                    'school_level',
+                    'class',
+                    'qr_code',
+                    'registrasi',
+                    'is_distributed' // atau 'distribution_status' tergantung field yang ada
+                ])
+                ->first();
 
             if (!$recipient) {
                 return response()->json(['error' => 'QR Code tidak ditemukan'], 404);
             }
 
-            // Tambahkan pengecekan: harus sudah registrasi
             if (!$recipient->registrasi) {
                 return response()->json(['error' => 'Penerima belum registrasi'], 403);
             }
@@ -199,11 +210,15 @@ class RecipientController extends Controller
             return response()->json([
                 'success' => true,
                 'recipient' => $recipient,
-                'status' => $recipient->distribution_status
+                'status' => $recipient->is_distributed // atau $recipient->distribution_status
             ]);
 
         } catch (\Exception $e) {
-            return response()->json(['error' => 'QR Code tidak valid: ' . $e->getMessage()], 400);
+            \Log::error('QR Verification Error: ' . $e->getMessage(), [
+                'qr_code' => $request->qr_code,
+                'trace' => $e->getTraceAsString()
+            ]);
+            return response()->json(['error' => 'Terjadi kesalahan saat verifikasi QR'], 400);
         }
     }
 
