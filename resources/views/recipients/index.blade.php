@@ -1,20 +1,27 @@
 @extends('layouts.app')
 
 @section('title', 'Data Penerima')
-
+    <style></style>
 @section('content')
-    <div class="d-flex justify-content-between align-items-center mb-4">
+     <div class="d-flex flex-column justify-content-between align-items-start mb-4 gap-4">
         {{-- Form Search --}}
         <form action="{{ route('recipients.index') }}" method="GET" class="d-flex">
             <input type="text" name="search" class="form-control me-2"
                    placeholder="Cari nama anak..."
-                   value="{{ request('search') }}"
-                   oninput="this.form.submit()"> {{-- auto submit tanpa klik tombol --}}
+                   value="{{ request('search') }}">
+            <button type="submit" class="btn btn-primary" style="width: 70%">
+                <i class="bi bi-search"></i> Cari
+            </button>
         </form>
+    <div class="d-flex">
+            <a href="{{ route('recipients.printAll') }}" class="btn btn-success btn-sm me-2">
+                <i class="fas fa-download"></i> Download Semua QR (ZIP)
+            </a>
 
-        <a href="{{ route('recipients.import') }}" class="btn btn-success ms-2">
-            <i class="fas fa-plus me-2"></i>Import Excel
-        </a>
+            <a href="{{ route('recipients.import') }}" class="btn btn-success btn-sm">
+                <i class="fas fa-file-excel me-1"></i> Import Excel
+            </a>
+        </div>
     </div>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
@@ -46,7 +53,6 @@
                                 <td>{{ $recipient->Ibu_name }}</td>
                                 <td>{{ $recipient->school_name }}</td>
                                 <td>{{ $recipient->class }}</td>
-
                                 <style>
                                     .status-box {
                                         display: inline-flex;
@@ -59,10 +65,23 @@
                                         color: white;
                                         text-decoration: none;
                                     }
-                                    .status-red { background-color: #dc3545; }
-                                    .status-yellow { background-color: #ffc107; color: #212529; }
-                                    .status-green { background-color: #28a745; }
-                                    .status-box i { font-size: 1rem; }
+
+                                    .status-red {
+                                        background-color: #dc3545;
+                                    }
+
+                                    .status-yellow {
+                                        background-color: #ffc107;
+                                        color: #212529;
+                                    }
+
+                                    .status-green {
+                                        background-color: #28a745;
+                                    }
+
+                                    .status-box i {
+                                        font-size: 1rem;
+                                    }
                                 </style>
 
                                 <td>
@@ -89,11 +108,13 @@
                                         <a href="{{ route('recipients.edit', $recipient) }}" class="btn btn-sm btn-warning">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="{{ route('recipients.qr-code', $recipient) }}" class="btn btn-sm btn-secondary" target="_blank">
+                                        <a href="{{ route('recipients.qr-code', $recipient) }}"
+                                            class="btn btn-sm btn-secondary" target="_blank">
                                             <i class="fas fa-qrcode"></i>
                                         </a>
                                         @if ($recipient->is_distributed)
-                                            <a href="{{ route('recipients.receipt', $recipient) }}" class="btn btn-sm btn-success">
+                                            <a href="{{ route('recipients.receipt', $recipient) }}"
+                                                class="btn btn-sm btn-success">
                                                 <i class="fas fa-file-pdf"></i>
                                             </a>
                                         @endif
@@ -118,7 +139,7 @@
             </div>
 
             <div class="d-flex justify-content-center">
-                {{ $recipients->appends(request()->query())->links() }}
+                {{ $recipients->links() }}
             </div>
         </div>
     </div>

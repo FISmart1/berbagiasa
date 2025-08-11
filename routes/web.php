@@ -32,7 +32,7 @@ Route::get('/', function () {
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/home', [DashboardController::class, 'index'])->name('home');
-
+    Route::get('/recipients/print-all', [RecipientController::class, 'printAllQrCodes'])->name('recipients.printAll');
     Route::resource('recipients', RecipientController::class);
     Route::get('/recipients/{recipient}/qr-code', [RecipientController::class, 'generateQrCode'])->name('recipients.qr-code');
     Route::get('/recipients/{recipient}/qr-print', [RecipientController::class, 'printQrCode'])->name('recipients.qr-print');
@@ -44,6 +44,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/report', [RecipientController::class, 'generateReport'])->name('recipients.report');
     Route::get('/recipient/import', [RecipientImportController::class, 'form']);
     Route::post('/recipient/import', [RecipientImportController::class, 'import'])->name('recipients.import');
+
     Route::post('/verify-qr-registration', [RecipientController::class, 'verifyQrRegistration']);
     Route::post('/mark-registered', [RecipientController::class, 'markRegistered']);
     Route::get('/registration', function () {
