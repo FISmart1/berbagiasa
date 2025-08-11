@@ -7,7 +7,7 @@
             <div class="card shadow-lg border-0">
                 <div class="card-body p-5">
                     <div class="text-center mb-4">
-                        <img src="https://akiradata.co.id/wp-content/uploads/2020/05/logo-pertamina.png" alt="Logo Pertamina" style="height: 80px;" class="mb-3">
+                        <img src="{{ asset('image/logo.png') }}" alt="Logo Pertamina" style="height: 80px;" class="mb-3">
                         <h3 class="fw-bold text-primary">Sistem Bansos Pendidikan</h3>
                         <p class="text-muted">Masuk ke sistem administrasi</p>
                     </div>
@@ -67,4 +67,4 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection

@@ -103,16 +103,27 @@ $(document).ready(function() {
                 qr_code: qrCode,
                 _token: '{{ csrf_token() }}'
             },
+            dataType: 'json',
             success: function(response) {
-                if (response.success) {
+                console.log(response); // Debug
+                if (response.success && response.recipient) {
                     currentRecipient = response.recipient;
                     displayRecipientInfo(response.recipient);
                     $('#distributionSection').show();
                     $('#recipient_id').val(response.recipient.id);
+                } else {
+                    $('#resultContent').html(`
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            ${response.error || 'Data penerima tidak ditemukan'}
+                        </div>
+                    `);
+                    $('#distributionSection').hide();
+                    currentRecipient = null;
                 }
             },
             error: function(xhr) {
-                const response = xhr.responseJSON;
+                const response = xhr.responseJSON || {};
                 $('#resultCard').show();
                 $('#resultContent').html(`
                     <div class="alert alert-danger">
@@ -148,12 +159,11 @@ $(document).ready(function() {
             data: formData,
             processData: false,
             contentType: false,
+            dataType: 'json',
             success: function(response) {
-                if (response.success) {
-                    if (response.recipient) {
-                        currentRecipient = response.recipient;
-                        displayRecipientInfo(currentRecipient, true); // tampilkan PDF langsung
-                    }
+                if (response.success && response.recipient) {
+                    currentRecipient = response.recipient;
+                    displayRecipientInfo(currentRecipient, true);
                     const successAlert = `
                         <div class="alert alert-success alert-dismissible fade show">
                             <i class="fas fa-check-circle me-2"></i>
@@ -167,7 +177,7 @@ $(document).ready(function() {
                 }
             },
             error: function(xhr) {
-                const response = xhr.responseJSON;
+                const response = xhr.responseJSON || {};
                 alert(response?.message || 'Terjadi kesalahan saat memperbarui data');
             },
             complete: function() {
@@ -178,6 +188,8 @@ $(document).ready(function() {
 });
 
 function displayRecipientInfo(recipient, showPdf = false) {
+    if (!recipient) return; // cegah error kalau kosong
+
     const statusBadge = recipient.is_distributed
         ? '<span class="badge bg-success">Sudah Menerima</span>'
         : '<span class="badge bg-warning">Belum Menerima</span>';
@@ -215,3 +227,4 @@ function resetForm() {
 }
 </script>
 @endpush
+

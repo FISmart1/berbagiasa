@@ -34,6 +34,7 @@ class RecipientController extends Controller
         return view('recipients.create');
     }
 
+
     public function store(Request $request)
     {
         $request->validate([
@@ -195,7 +196,7 @@ class RecipientController extends Controller
                     'class',
                     'qr_code',
                     'registrasi',
-                    'is_distributed' // atau 'distribution_status' tergantung field yang ada
+
                 ])
                 ->first();
 
