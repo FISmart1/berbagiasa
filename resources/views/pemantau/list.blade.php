@@ -3,7 +3,7 @@
 @section('title', 'Data Penerima')
 
 @section('content')
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 <div class="card shadow">
     <div class="card-body">
         <div class="table-responsive">
@@ -12,7 +12,8 @@
                     <tr>
                         <th>QR Code</th>
                         <th>Nama Anak</th>
-                        <th>Nama Orang Tua</th>
+                        <th>Nama Ayah</th>
+                        <th>Nama Ibu</th>
                         <th>Sekolah</th>
                         <th>Kelas</th>
                         <th>Status</th>
@@ -26,15 +27,41 @@
                                 <span class="badge bg-primary">{{ $recipient->qr_code }}</span>
                             </td>
                             <td>{{ $recipient->child_name }}</td>
-                            <td>{{ $recipient->parent_name }}</td>
+                            <td>{{ $recipient->Ayah_name }}</td>
+                            <td>{{ $recipient->Ibu_name }}</td>
                             <td>{{ $recipient->school_name }}</td>
                             <td>{{ $recipient->class }}</td>
+                            <style>
+                                    .status-box {
+                                        display: inline-flex;
+                                        align-items: center;
+                                        gap: 5px;
+                                        padding: 4px 10px;
+                                        border-radius: 5px;
+                                        font-weight: 600;
+                                        font-size: 0.85rem;
+                                        color: white;
+                                        text-decoration: none;
+                                    }
+                                    .status-red { background-color: #dc3545; }
+                                    .status-yellow { background-color: #ffc107; color: #212529; }
+                                    .status-green { background-color: #28a745; }
+                                    .status-box i { font-size: 1rem; }
+                                </style>
                             <td>
-                                @if($recipient->is_distributed)
-                                    <span class="badge bg-success">Sudah Menerima</span>
-                                @else
-                                    <span class="badge bg-warning">Belum Menerima</span>
-                                @endif
+                                @if ($recipient->is_distributed && $recipient->registrasi)
+                                        <a href="#" class="status-box status-green">
+                                            <i class="bi bi-check-all"></i> Completed
+                                        </a>
+                                    @elseif ($recipient->registrasi && !$recipient->is_distributed)
+                                        <a href="#" class="status-box status-yellow">
+                                            <i class="bi bi-check"></i> Sudah registrasi
+                                        </a>
+                                    @else
+                                        <a href="#" class="status-box status-red">
+                                            <i class="bi bi-x"></i> Belum registrasi
+                                        </a>
+                                    @endif
                             </td>
                             <td>
                                 <div class="btn-group" role="group">
